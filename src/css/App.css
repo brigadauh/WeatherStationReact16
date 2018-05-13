@@ -1,0 +1,182 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800|Roboto+Slab:400,100,300,700);
+
+/**  Basic Page CSS **/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body{
+  font-family: "Times New Roman", sans-serif;
+  font-weight: 300;
+  font-size: 2em;
+  font-size: 16px;
+  margin: 0 auto 100px auto; /* bottom = footer height */
+  padding: 0px;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Times New Roman", sans-serif;
+  font-weight: 100;
+  margin: 0;
+}
+
+.current-time {
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 85px;
+    font-weight: 600;
+    cursor:pointer;
+}
+
+.main {
+  background: white;
+  padding: 10px 0 30 0;
+}
+/**  Footer **/
+
+footer {
+  background: #337ab7;
+  color: white;
+  font-size: .8em;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  overflow:hidden;
+
+}
+
+footer a {
+  color: #E0E6AE;
+}
+
+footer a:hover {
+  color: #EEC856 !important;
+}
+
+footer .phone {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: #E0E6AE;
+}
+
+footer .navbar {
+  margin-bottom: 0;
+  min-height: 0;
+}
+
+footer .navbar-default {
+  background-color: transparent;
+  border: none;
+  margin-right: 40px;
+}
+
+footer .navbar-nav>li a {
+  padding-top: 0;
+  padding-bottom: 0;
+  text-decoration: underline;
+  color: #EEC856 !important;
+}
+footer .content {
+    line-height:60px;
+}
+footer .content p {
+    margin:0px;
+}
+
+
+
+/**  Interface Styles **/
+
+.apt-addheading {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
+
+.item-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin: 10px 5%;
+  font-size: 1rem;
+}
+
+.item-list .pet-item {
+    border-bottom: 1px dotted gray;
+    padding-bottom: 10px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item-list .pet-item:last-child {
+  border-bottom: none;
+}
+
+.item-list .pet-name {
+  font-weight: 600;
+  color: #337ab7;
+  font-size: 1.3em;
+  line-height: 100%;
+}
+
+.item-list .pet-info {
+  font-size: 1.7em;
+}
+
+.item-list .label-item {
+  font-weight: 600;
+  color: #667B82;
+}
+
+.item-list .pet-delete {
+  font-size: 1.2em;
+}
+
+.item-list .apt-date {
+  font-style: italic;
+  padding-right:5px;
+}
+
+.item-list .apt-notes {
+
+}
+
+/****************************
+Came with create-react-app
+****************************/
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+/****************************************/

@@ -1,0 +1,49 @@
+
+/**  Header Navigation **/
+.container {
+    width:100% !important;
+    padding:0 !important;
+}
+.navbar-header {
+    width:100%;
+    margin-left:0px!important;
+}
+.navbar-brand {
+    padding:0 0 0 0 !important;
+    width:100%;
+    margin: 0 0 0 0 !important;
+}
+header .navbar {
+  margin-bottom: 0;
+}
+
+header .navbar-default {
+  background-color: #337ab7;
+  border: none;
+  border-radius: 0;
+  padding: 10px 0;
+}
+
+/**  Navbar Brand **/
+
+header .navbar-brand img{
+    width: 50px;
+    display:inline-block;
+    margin-left:25px;
+    vertical-align: middle;
+}
+
+header .navbar-brand h1 {
+  color: white;
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 400;
+  display: inline-block;
+  line-height:50px;
+  width:calc(100% - 80px);
+  text-align:center;
+  vertical-align: middle;
+}
+.navbar-nav {
+    margin: 0px -15px;
+}

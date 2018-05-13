@@ -1,0 +1,45 @@
+h1 {
+    text-align: center;
+    font-weight:400;
+}
+.main {
+    margin: 0 auto;
+}
+.temp {
+    font-size: 4em;
+}
+.temp-2 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #b92e2e;
+}
+.temp-unit {
+    font-size: 0.4em;
+}
+.temp-unit-2 {
+    font-size: 0.4em;
+}
+.temp-degrees {
+    font-size: 0.5em;
+    vertical-align: top;
+}
+.temp-degrees-2 {
+    font-size: 0.5em;
+    vertical-align: top;
+}
+.misc-data {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        font-size:20px;
+    }
+.humidity {
+    font-weight: 600;
+    color: #667B82;
+
+}
+.datetime {
+    font-weight: 300;
+    font-style: italic;
+    text-align:center;
+}
