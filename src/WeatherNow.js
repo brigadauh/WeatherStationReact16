@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/weatherNow.css';
 import * as utils from './utils';
-
+import HourlyTemp from './HourlyTemp';
 
 class WeatherNow extends Component {
 
@@ -30,10 +30,11 @@ class WeatherNow extends Component {
       let forecastMinTempPrev=100;
       let minStop=false;
       let maxStop=false;
-      let forecastDateTimePrev = Date().toString().substring(0,16);
+      let forecastDateTimePrev = Date().substring(0,16);
+      let forecastHTML = [];
       for (let i in forecasts) {
           let forecastDateTime=forecasts[i]["forecast_date"];
-          let forecastDate=forecastDateTime.substring(0,10);
+          //let forecastDate=forecastDateTime.substring(0,10);
           let forecast=forecasts[i]["forecasts"];
           //if (new Date(forecastDate)>minMaxPeriod) {
         //      //console.log('forecastDate',forecastDate);
@@ -44,11 +45,12 @@ class WeatherNow extends Component {
               let forecastMinTemp=(Number(forecast.main.temp_min)-273) || +100;
               if (forecastMaxTemp < forecastMaxTempPrev) {maxStop=true;} // stop when max temperature started to decline
               if (forecastMinTemp > forecastMinTempPrev) {minStop=true;} // stop when min temperature started to rise
-              if (forecastMaxTemp > maxTempC && !maxStop ) {maxTempC=forecastMaxTemp; maxTempTime=forecastDateTimePrev;}
-              if (forecastMinTemp < minTempC && !minStop) {minTempC=forecastMinTemp; minTempTime=forecastDateTimePrev;}
+              if (forecastMaxTemp > maxTempC && !maxStop ) {maxTempC=forecastMaxTemp; maxTempTime=forecastDateTime.substring(0,16);}
+              if (forecastMinTemp < minTempC && !minStop) {minTempC=forecastMinTemp; minTempTime=forecastDateTime.substring(0,16);}
               forecastMaxTempPrev = forecastMaxTemp;
               forecastMinTempPrev = forecastMinTemp;
-              forecastDateTimePrev = forecastDateTime.substring(0,16);
+              //forecastDateTimePrev = forecastDateTime.substring(0,16);
+              forecastHTML.push([upArrow+forecastMaxTemp.toFixed(0),downArrow+forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
               //console.log('forecast',forecastDateTime,forecastMaxTemp,forecastMinTemp );
           //}
       }
@@ -87,6 +89,18 @@ class WeatherNow extends Component {
                 </div>
                 <div className="misc-data datetime">
                     <span id="temp_forecast_time">{tempC_forecast_Time}</span>
+                </div>
+                <div className = "WeatherNow-hourly-forecast">
+                    {forecastHTML.map((forecastArray) =>
+                        <span className = "HourlyTemp-box">
+                            <span>
+                                <span className="HourlyTemp-top-left">{forecastArray[0]}</span>
+                                <span className="HourlyTemp-top-right">{forecastArray[1]}</span>
+                            </span>
+                            <span className="HourlyTemp-bottom">{forecastArray[2]}</span>
+                        </span>
+
+                    )}
                 </div>
             </h1>
 

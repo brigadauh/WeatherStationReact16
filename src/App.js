@@ -14,16 +14,19 @@ class App extends Component {
 
           tempCurr: [],
           forecast: [],
-          curTime: ""
+          curTime: "",
+          timeElapsed: 0
       };
     }
     componentDidMount(){
+        this.interval = setInterval(this.tick, 1000);
+        this.setState({timeElapsed: this.state.timeElapsed + 1});
         controller.getDataCurrent(this);
         controller.getDataForecast(this);
         controller.getTime(this, true);
     }
     componentWillUnmount() {
-        this.serverRequest.abort();
+        clearInterval(this.interval);
     }
     render() {
     let tempHistHtml=[];
@@ -33,6 +36,7 @@ class App extends Component {
           <WeatherNow
             tempNow = {this.state.tempCurr.data && this.state.tempCurr.data.length>0 ? this.state.tempCurr.data[0] : []}
             dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
+            timeElapsed = {this.state.timeElapsed}
             />
           <li id="current_time" className="current-time" onClick={(e) => controller.getTime(this,true)}> {this.state.curTime} </li>
           {tempHistHtml}</ul>

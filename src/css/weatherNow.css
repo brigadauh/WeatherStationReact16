@@ -43,3 +43,7 @@ h1 {
     font-style: italic;
     text-align:center;
 }
+.WeatherNow-hourly-forecast {
+    width:100%;
+    overflow-x: auto;
+}
