@@ -6,7 +6,7 @@ class Header extends Component {
   render() {
     return (
         <header>
-          <nav className="navbar navbar-default" role="navigation">
+          <nav className="navbar navbar-default">
             <div className="container">
               <div className="navbar-header navbar-brand">
                 <img src={WeatherImg} alt="weather icon" />

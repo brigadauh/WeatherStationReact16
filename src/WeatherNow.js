@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './css/weatherNow.css';
+import './css/HourlyTemp.css';
 import * as utils from './utils';
-import HourlyTemp from './HourlyTemp';
 
 class WeatherNow extends Component {
 
@@ -13,7 +13,7 @@ class WeatherNow extends Component {
       const forecasts=this.props.dataForecast || {};
       const currDate=utils.currentDate();
       const source = (this.props.tempNow.source === '') ? '(local)':'('+this.props.tempNow.source+')';
-      const minMaxPeriod=utils.addHours(currDate, 12);
+      //const minMaxPeriod=utils.addHours(currDate, 12);
       const downArrow='\u2193';
       const upArrow='\u2191';
       let maxTempC=-273;
@@ -30,14 +30,16 @@ class WeatherNow extends Component {
       let forecastMinTempPrev=100;
       let minStop=false;
       let maxStop=false;
-      let forecastDateTimePrev = Date().substring(0,16);
+      //let forecastDateTimePrev = Date().substring(0,16);
       let forecastHTML = [];
       for (let i in forecasts) {
-          let forecastDateTime=forecasts[i]["forecast_date"];
-          //let forecastDate=forecastDateTime.substring(0,10);
+          let forecastDateTime = forecasts[i]["forecast_date"];
+          let forecastDateTimeD =new Date(forecastDateTime);
+          forecastDateTimeD.setHours(forecastDateTimeD.getHours()-3);
+          forecastDateTime = utils.formatDate(forecastDateTimeD);
+          //console.log('forecastDateTime',forecastDateTime);
           let forecast=forecasts[i]["forecasts"];
           //if (new Date(forecastDate)>minMaxPeriod) {
-        //      //console.log('forecastDate',forecastDate);
         //      break;
           //}
           //else {
@@ -92,7 +94,7 @@ class WeatherNow extends Component {
                 </div>
                 <div className = "WeatherNow-hourly-forecast">
                     {forecastHTML.map((forecastArray) =>
-                        <span className = "HourlyTemp-box">
+                        <span key = {forecastArray[2]} className = "HourlyTemp-box">
                             <span>
                                 <span className="HourlyTemp-top-left">{forecastArray[0]}</span>
                                 <span className="HourlyTemp-top-right">{forecastArray[1]}</span>

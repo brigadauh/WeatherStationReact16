@@ -39,9 +39,10 @@ h1 {
 
 }
 .datetime {
-    font-weight: 300;
+    font-weight: 600;
     font-style: italic;
     text-align:center;
+    color: #5f8aaf;
 }
 .WeatherNow-hourly-forecast {
     width:100%;

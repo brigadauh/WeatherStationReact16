@@ -27,6 +27,15 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 85px;
     font-weight: 600;
     cursor:pointer;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
+    padding: 10px 0px;
+    background-color: #000000;
+    color: #00da08;
+    border-radius: 6px;
+    border: solid 8px #7d8494;
 }
 
 .main {

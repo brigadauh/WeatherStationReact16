@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/HourlyTemp.css';
-import * as utils from './utils';
+//import * as utils from './utils';
 
 class HourlyTemp extends Component {
     render() {

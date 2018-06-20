@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './css/App.css';
 //import Weatherhistory from './WeatherHistory';
 import WeatherNow from './WeatherNow';
-import * as utils from './utils';
+//import * as utils from './utils';
 import * as controller from './controller';
 
 class App extends Component {
