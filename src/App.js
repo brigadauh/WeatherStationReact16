@@ -5,6 +5,8 @@ import './css/App.css';
 import WeatherNow from './WeatherNow';
 //import * as utils from './utils';
 import * as controller from './controller';
+import Header from './GlobalHeader';
+import Footer from './GlobalFooter';
 
 class App extends Component {
     constructor(props){
@@ -26,21 +28,30 @@ class App extends Component {
         controller.getTime(this, true);
     }
     componentWillUnmount() {
-        clearInterval(this.interval);
+        if (this.interval){
+            clearInterval(this.interval);
+        }
     }
     render() {
-    let tempHistHtml=[];
+    //let tempHistHtml=[];
     return (
+	<React.Fragment>
+    	<div id="header">
+    	<Header />
+    	</div>
         <div className="interface">
-          <ul className="item-list media-list">
-          <WeatherNow
-            tempNow = {this.state.tempCurr.data && this.state.tempCurr.data.length>0 ? this.state.tempCurr.data[0] : []}
-            dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
-            timeElapsed = {this.state.timeElapsed}
-            />
-          <li id="current_time" className="current-time" onClick={(e) => controller.getTime(this,true)}> {this.state.curTime} </li>
-          {tempHistHtml}</ul>
+          <div className="item-list media-list">
+              <WeatherNow
+                tempNow = {this.state.tempCurr.data && this.state.tempCurr.data.length>0 ? this.state.tempCurr.data[0] : []}
+                dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
+                timeElapsed = {this.state.timeElapsed}
+                />
+              <div id="current_time" className="current-time" onClick={(e) => controller.getTime(this,true)}> {this.state.curTime} </div>
+              {/*tempHistHtml*/}
+          </div>
         </div>
+        <Footer />
+	</React.Fragment>
     );
     }
 }

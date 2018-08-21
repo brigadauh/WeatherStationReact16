@@ -1,24 +1,26 @@
 
 export function getDataCurrent(content) {
-    fetch(`/api/weather/temphumidity/current`)
-    .then(result=>result.json())
-    .then(tempCurr=>content.setState({tempCurr}));
     setTimeout(() => {
         getDataCurrent(content);
     },120000);
+    return fetch(`/api/weather/temphumidity/current`)
+    .then(result=>result.json())
+    .then(tempCurr=>content.setState({tempCurr}))
+    .catch((err) => console.log('getDataCurrent catch'));
 }
 export function getDataForecast(content) {
-    fetch(`/api/weather/forecast`)
+    setTimeout(() => {
+        getDataForecast(content);
+    },60000*60);
+    return fetch(`/api/weather/forecast`)
     .then(result=>result.json())
     .then(forecast=>{
         const data=forecast.data;
         content.setState({forecast:data});
 
-    });
+    })
+    .catch((err) => console.log('getDataCurrent catch'));
 
-    setTimeout(() => {
-        getDataForecast(content);
-    },60000*60);
 }
 export function getTime(content,isSeconds) {
     var d=new Date();

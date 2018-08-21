@@ -32,10 +32,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: auto;
     margin-top:10px;
     padding: 10px 0px;
-    background-color: #000000;
-    color: #00da08;
+    color: #0c6327;
+    /*background-color: #000000;
     border-radius: 6px;
-    border: solid 8px #7d8494;
+    border: solid 8px #7d8494;*/
 }
 
 .main {

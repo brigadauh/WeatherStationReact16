@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './css/weatherNow.css';
 import './css/HourlyTemp.css';
 import * as utils from './utils';
-
+import HourlyTemp from './HourlyTemp';
 class WeatherNow extends Component {
 
 
@@ -93,15 +93,15 @@ class WeatherNow extends Component {
                     <span id="temp_forecast_time">{tempC_forecast_Time}</span>
                 </div>
                 <div className = "WeatherNow-hourly-forecast">
-                    {forecastHTML.map((forecastArray) =>
-                        <span key = {forecastArray[2]} className = "HourlyTemp-box">
-                            <span>
-                                <span className="HourlyTemp-top-left">{forecastArray[0]}</span>
-                                <span className="HourlyTemp-top-right">{forecastArray[1]}</span>
-                            </span>
-                            <span className="HourlyTemp-bottom">{forecastArray[2]}</span>
-                        </span>
-
+                    {forecastHTML.map((forecastArray) =>{
+                        let hourlyForecast = {};
+                        hourlyForecast.minTemp = forecastArray[1];
+                        hourlyForecast.maxTemp = forecastArray[0];
+                        hourlyForecast.time = forecastArray[2];
+                        return (
+                            <HourlyTemp key = {hourlyForecast.time} forecast = {hourlyForecast} />
+                        );
+                    }
                     )}
                 </div>
             </h1>
