@@ -42,7 +42,7 @@ class App extends Component {
         <div className="interface">
           <div className="item-list media-list">
               <WeatherNow
-                tempNow = {this.state.tempCurr.data && this.state.tempCurr.data.length>0 ? this.state.tempCurr.data[0] : []}
+                tempCurrent = {this.state.tempCurr.data && this.state.tempCurr.data.length>0 ? this.state.tempCurr.data[0] : []}
                 dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
                 timeElapsed = {this.state.timeElapsed}
                 />

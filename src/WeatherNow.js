@@ -6,24 +6,29 @@ import HourlyTemp from './HourlyTemp';
 class WeatherNow extends Component {
 
 
+  constructor(props){
+      super(props);
+      this.downArrow = '\u2193';
+      this.upArrow = '\u2191';
+      this.minTempTime=utils.currentDate();;
+      this.maxTempTime=utils.currentDate();;
+      this.tempTrend = "";
+  }
+  componentDidMount() {
 
+  }
   render() {
-      const tempC=Number(this.props.tempNow.temp);
-      const tempC_prev=Number(this.props.tempNow.recent_temp);
+      const tempC=Number(this.props.tempCurrent.temp);
+      const tempC_prev=Number(this.props.tempCurrent.recent_temp);
+      const recordedTime = this.props.tempCurrent.recorded_time;
+      const currentHumidity = this.props.tempCurrent.humidity;
       const forecasts=this.props.dataForecast || {};
-      const currDate=utils.currentDate();
-      const source = (this.props.tempNow.source === '') ? '(local)':'('+this.props.tempNow.source+')';
-      //const minMaxPeriod=utils.addHours(currDate, 12);
-      const downArrow='\u2193';
-      const upArrow='\u2191';
+      const source = (this.props.tempCurrent.source === '') ? '(local)':'('+this.props.tempCurrent.source+')';
       let maxTempC=-273;
       let minTempC=100;
-      let minTempTime=currDate;
-      let maxTempTime=currDate;
 
-      let tempTrend = "";
-      if (tempC > tempC_prev) {tempTrend=upArrow;}
-      if (tempC < tempC_prev) {tempTrend=downArrow;}
+      if (tempC > tempC_prev) {this.tempTrend=this.upArrow;}
+      if (tempC < tempC_prev) {this.tempTrend=this.downArrow;}
 
       //console.log('forecasts',forecasts );
       let forecastMaxTempPrev=-273;
@@ -47,16 +52,17 @@ class WeatherNow extends Component {
               let forecastMinTemp=(Number(forecast.main.temp_min)-273) || +100;
               if (forecastMaxTemp < forecastMaxTempPrev) {maxStop=true;} // stop when max temperature started to decline
               if (forecastMinTemp > forecastMinTempPrev) {minStop=true;} // stop when min temperature started to rise
-              if (forecastMaxTemp > maxTempC && !maxStop ) {maxTempC=forecastMaxTemp; maxTempTime=forecastDateTime.substring(0,16);}
-              if (forecastMinTemp < minTempC && !minStop) {minTempC=forecastMinTemp; minTempTime=forecastDateTime.substring(0,16);}
+              if (forecastMaxTemp > maxTempC && !maxStop ) {maxTempC=forecastMaxTemp; this.maxTempTime=forecastDateTime.substring(0,16);}
+              if (forecastMinTemp < minTempC && !minStop) {minTempC=forecastMinTemp; this.minTempTime=forecastDateTime.substring(0,16);}
               forecastMaxTempPrev = forecastMaxTemp;
               forecastMinTempPrev = forecastMinTemp;
               //forecastDateTimePrev = forecastDateTime.substring(0,16);
-              forecastHTML.push([upArrow+forecastMaxTemp.toFixed(0),downArrow+forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
+              forecastHTML.push([this.upArrow+forecastMaxTemp.toFixed(0),this.downArrow+forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
               //console.log('forecast',forecastDateTime,forecastMaxTemp,forecastMinTemp );
           //}
       }
       if (minTempC === 100){minTempC = "n/a"} else {
+          //console.log('minTempC',minTempC );
           minTempC = minTempC.toFixed(0);
           if (minTempC > 0) {minTempC="+" + minTempC;}
           if (minTempC === "-0") {minTempC = "0";}
@@ -66,21 +72,21 @@ class WeatherNow extends Component {
           if (maxTempC > 0) {maxTempC="+" + maxTempC;}
           if (maxTempC === "-0") {maxTempC = "0";}
       }
-      let tempC_forecast = (tempTrend === downArrow) ? minTempC : maxTempC;
-      let tempC_forecast_Time = (tempTrend === downArrow) ? minTempTime : maxTempTime;
+      let tempC_forecast = (this.tempTrend === this.downArrow) ? minTempC : maxTempC;
+      let tempC_forecast_Time = (this.tempTrend === this.downArrow) ? this.minTempTime : this.maxTempTime;
       //console.log('forecast:',forecasts);
     return(
         <div>
             <h1 >
                 <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{(this.props.tempNow.temp*1.8+32).toFixed(0)}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">F</span></span>
+                    <span id="current_temp_2" className="temp-2">&nbsp;{(tempC*1.8+32).toFixed(0)}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">F</span></span>
                 </div>
                 <div>
-                    <span id="temp_trend" className="temp">{tempTrend}</span>
+                    <span id="temp_trend" className="temp">{this.tempTrend}</span>
                     <span id="current_temp" className="temp">{tempC.toFixed(0)}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">C</span></span>
                 </div>
                 <div className="misc-data datetime">
-                    <span id="temp_humid_last_reported">{this.props.tempNow.recorded_time}</span>
+                    <span id="temp_humid_last_reported">{recordedTime}</span>
                     <span id="temp_humid_source">{source}</span>
                 </div>
                 <div>
@@ -107,7 +113,7 @@ class WeatherNow extends Component {
             </h1>
 
             <div className="misc-data humidity">
-                <span>Humidity:</span><span id="current_humidity">{Number(this.props.tempNow.humidity).toFixed(0)}</span>%
+                <span>Humidity:</span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>%
             </div>
 
         </div>
