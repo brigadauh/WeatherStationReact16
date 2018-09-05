@@ -38,16 +38,17 @@ class WeatherNow extends Component {
       //let forecastDateTimePrev = Date().substring(0,16);
       let forecastHTML = [];
       for (let i in forecasts) {
-          let forecastDateTime = forecasts[i]["forecast_date"];
-          let forecastDateTimeD =new Date(forecastDateTime);
-          forecastDateTimeD.setHours(forecastDateTimeD.getHours()-3);
-          forecastDateTime = utils.formatDate(forecastDateTimeD);
-          //console.log('forecastDateTime',forecastDateTime);
-          let forecast=forecasts[i]["forecasts"];
-          //if (new Date(forecastDate)>minMaxPeriod) {
-        //      break;
-          //}
-          //else {
+          if (i > 0) { // ignore 1st element because it is in the past, considering 3hr difference
+              let forecastDateTime = forecasts[i]["forecast_date"];
+              let forecastDateTimeD =new Date(forecastDateTime);
+              forecastDateTimeD.setHours(forecastDateTimeD.getHours()-3);
+              forecastDateTime = utils.formatDate(forecastDateTimeD);
+              //console.log('forecastDateTime',forecastDateTime);
+              let forecast=forecasts[i]["forecasts"];
+              //if (new Date(forecastDate)>minMaxPeriod) {
+              //      break;
+              //}
+              //else {
               let forecastMaxTemp=(Number(forecast.main.temp_max)-273) || -273;
               let forecastMinTemp=(Number(forecast.main.temp_min)-273) || +100;
               if (forecastMaxTemp < forecastMaxTempPrev) {maxStop=true;} // stop when max temperature started to decline
@@ -59,7 +60,8 @@ class WeatherNow extends Component {
               //forecastDateTimePrev = forecastDateTime.substring(0,16);
               forecastHTML.push([this.upArrow+forecastMaxTemp.toFixed(0),this.downArrow+forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
               //console.log('forecast',forecastDateTime,forecastMaxTemp,forecastMinTemp );
-          //}
+              //}
+          }
       }
       if (minTempC === 100){minTempC = "n/a"} else {
           //console.log('minTempC',minTempC );
