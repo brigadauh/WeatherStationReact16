@@ -10,8 +10,8 @@ class WeatherNow extends Component {
       super(props);
       this.downArrow = '\u2193';
       this.upArrow = '\u2191';
-      this.minTempTime=utils.currentDate();;
-      this.maxTempTime=utils.currentDate();;
+      this.minTempTime=utils.currentDate();
+      this.maxTempTime=utils.currentDate();
       this.tempTrend = "";
   }
   componentDidMount() {
