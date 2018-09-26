@@ -24,7 +24,7 @@ describe('<App />', () => {
     it('shows correct copyright year', () => {
       const currYear = new Date().getFullYear().toString();
       const copyrightYearElement = shallow(<Footer />).find("#GlobalFooterCopyrightYear");
-      console.log(copyrightYearElement);
+      //console.log(copyrightYearElement);
       expect(copyrightYearElement.text()).toEqual(currYear);
 
     });

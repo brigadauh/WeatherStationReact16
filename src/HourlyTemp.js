@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './css/HourlyTemp.css';
+import * as constants from './constants';
+
 //import * as utils from './utils';
 
 class HourlyTemp extends Component {
@@ -22,8 +24,8 @@ class HourlyTemp extends Component {
         return (
             <React.Fragment>
             <span className = "HourlyTemp-box">
-                <span className="HourlyTemp-top-left">{this.forecast.maxTemp}</span>
-                <span className="HourlyTemp-top-right">{this.forecast.minTemp}</span>
+                <span className="HourlyTemp-top-left">{constants.upArrow+this.forecast.maxTemp}</span>
+                <span className="HourlyTemp-top-right">{constants.downArrow+this.forecast.minTemp}</span>
                 <span className="HourlyTemp-bottom">{this.forecast.time}</span>
             </span>
             </React.Fragment>

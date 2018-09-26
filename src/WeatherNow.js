@@ -2,41 +2,32 @@ import React, { Component } from 'react';
 import './css/weatherNow.css';
 import './css/HourlyTemp.css';
 import * as utils from './utils';
+import * as constants from './constants';
 import HourlyTemp from './HourlyTemp';
 class WeatherNow extends Component {
 
 
   constructor(props){
       super(props);
-      this.downArrow = '\u2193';
-      this.upArrow = '\u2191';
       this.minTempTime=utils.currentDate();
       this.maxTempTime=utils.currentDate();
       this.tempTrend = "";
-  }
-  componentDidMount() {
+      this.state = {
+          forecast:null,
+          curTime:'',
+          units:utils.getCookie('temperature-units') || 'C'
+      };
 
   }
-  render() {
-      const tempC=Number(this.props.tempCurrent.temp);
-      const tempC_prev=Number(this.props.tempCurrent.recent_temp);
-      const recordedTime = this.props.tempCurrent.recorded_time;
-      const currentHumidity = this.props.tempCurrent.humidity;
-      const forecasts=this.props.dataForecast || {};
-      const source = (this.props.tempCurrent.source === '') ? '(local)':'('+this.props.tempCurrent.source+')';
-      let maxTempC=-273;
-      let minTempC=100;
-
-      if (tempC > tempC_prev) {this.tempTrend=this.upArrow;}
-      if (tempC < tempC_prev) {this.tempTrend=this.downArrow;}
-
-      //console.log('forecasts',forecasts );
+  hourlyData = (forecasts) => {
       let forecastMaxTempPrev=-273;
       let forecastMinTempPrev=100;
       let minStop=false;
       let maxStop=false;
+      let maxTempC=-273;
+      let minTempC=100;
       //let forecastDateTimePrev = Date().substring(0,16);
-      let forecastHTML = [];
+      let hourlyForecastData = [];
       for (let i in forecasts) {
           if (i > 0) { // ignore 1st element because it is in the past, considering 3hr difference
               let forecastDateTime = forecasts[i]["forecast_date"];
@@ -58,13 +49,12 @@ class WeatherNow extends Component {
               forecastMaxTempPrev = forecastMaxTemp;
               forecastMinTempPrev = forecastMinTemp;
               //forecastDateTimePrev = forecastDateTime.substring(0,16);
-              forecastHTML.push([this.upArrow+forecastMaxTemp.toFixed(0),this.downArrow+forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
+              hourlyForecastData.push([forecastMaxTemp.toFixed(0),forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
               //console.log('forecast',forecastDateTime,forecastMaxTemp,forecastMinTemp );
               //}
           }
       }
       if (minTempC === 100){minTempC = "n/a"} else {
-          //console.log('minTempC',minTempC );
           minTempC = minTempC.toFixed(0);
           if (minTempC > 0) {minTempC="+" + minTempC;}
           if (minTempC === "-0") {minTempC = "0";}
@@ -74,40 +64,72 @@ class WeatherNow extends Component {
           if (maxTempC > 0) {maxTempC="+" + maxTempC;}
           if (maxTempC === "-0") {maxTempC = "0";}
       }
-      let tempC_forecast = (this.tempTrend === this.downArrow) ? minTempC : maxTempC;
-      let tempC_forecast_Time = (this.tempTrend === this.downArrow) ? this.minTempTime : this.maxTempTime;
+      return {'hourlyForecastData':hourlyForecastData, 'forecastMinTemp':minTempC, 'forecastMaxTemp' : maxTempC};
+  }
+  componentDidMount() {
+
+  }
+  switchUnits = () => {
+      let units = this.state.units;
+      if (units ==='C') { units ='F'} else {units = 'C'}
+      utils.setCookie('temperature-units', units, 3650,'/');
+      this.setState({
+          units:units
+      });
+  }
+
+  render() {
+      const tempC=Number(this.props.tempCurrent.temp);
+      const tempC_prev=Number(this.props.tempCurrent.recent_temp);
+      const recordedTime = this.props.tempCurrent.recorded_time;
+      const currentHumidity = this.props.tempCurrent.humidity;
+      const forecasts=this.props.dataForecast || {};
+      const source = (this.props.tempCurrent.source === '') ? '(local)':'('+this.props.tempCurrent.source+')';
+
+      if (tempC > tempC_prev) {this.tempTrend=constants.upArrow;}
+      if (tempC < tempC_prev) {this.tempTrend=constants.downArrow;}
+
+      let {hourlyForecastData, forecastMinTemp, forecastMaxTemp} = this.hourlyData(forecasts);
+      let tempC_forecast = (this.tempTrend === constants.downArrow) ? forecastMinTemp : forecastMaxTemp;
+      //console.log('temps',tempC,tempC_forecast*1.0, tempC>tempC_forecast*1.0 );
+      let tempC1 = (this.state.units ==='C') ? tempC.toFixed(0) : (tempC*1.8+32).toFixed(0);
+      let tempC2 = (this.state.units ==='C') ? (tempC*1.8+32).toFixed(0) : tempC.toFixed(0);
+      let temp_forecast1 = (this.state.units ==='C') ? tempC_forecast : (tempC_forecast*1.8+32).toFixed(0);
+      let temp_forecast2 = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
+      let forecastTempClass = ((this.tempTrend === constants.downArrow && tempC < tempC_forecast*1.0) || (this.tempTrend === constants.upArrow && tempC > tempC_forecast*1.0)) ?  'temp disabled' : 'temp';
+      let tempC_forecast_Time = (this.tempTrend === constants.downArrow) ? this.minTempTime : this.maxTempTime;
       //console.log('forecast:',forecasts);
     return(
         <div>
             <h1 >
                 <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{(tempC*1.8+32).toFixed(0)}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">F</span></span>
+                    <span id="current_temp_2" className="temp-2">&nbsp;{tempC2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div>
                     <span id="temp_trend" className="temp">{this.tempTrend}</span>
-                    <span id="current_temp" className="temp">{tempC.toFixed(0)}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">C</span></span>
+                    <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div className="misc-data datetime">
                     <span id="temp_humid_last_reported">{recordedTime}</span>
                     <span id="temp_humid_source">{source}</span>
                 </div>
                 <div>
-                    <span id="min_temp" className="temp">{tempC_forecast}&deg;</span>
+                    <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{temp_forecast1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{(tempC_forecast*1.8+32).toFixed(0)}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">F</span></span>
+                    <span id="current_temp_2" className="temp-2">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div className="misc-data datetime">
                     <span id="temp_forecast_time">{tempC_forecast_Time}</span>
                 </div>
                 <div className = "WeatherNow-hourly-forecast">
-                    {forecastHTML.map((forecastArray) =>{
+                    {hourlyForecastData.map((forecastArray,i) =>{
                         let hourlyForecast = {};
                         hourlyForecast.minTemp = forecastArray[1];
                         hourlyForecast.maxTemp = forecastArray[0];
                         hourlyForecast.time = forecastArray[2];
                         return (
-                            <HourlyTemp key = {hourlyForecast.time} forecast = {hourlyForecast} />
+                            <HourlyTemp key = {i} forecast = {hourlyForecast} />
                         );
                     }
                     )}

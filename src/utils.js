@@ -37,3 +37,18 @@ export function formatDate(date) {
   //return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
   return date.getFullYear() + "-" + month + "-" + day + " " + strTime;
 }
+
+/****************************** cookie **************************/
+export function setCookie(cname, cvalue, exdays,path) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path="+path;
+}
+
+export function getCookie(name) {
+  let value = "; " + document.cookie;
+  let parts = value.split("; " + name + "=");
+  if (parts.length === 2) return parts.pop().split(";").shift();
+  return "";
+}
