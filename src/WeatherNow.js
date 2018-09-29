@@ -26,7 +26,7 @@ class WeatherNow extends Component {
       let maxStop=false;
       let maxTempC=-273;
       let minTempC=100;
-      console.log('forecasts',forecasts);
+      //console.log('forecasts',forecasts);
       //let forecastDateTimePrev = Date().substring(0,16);
       let forecastArrayOut = [];
       for (let i in forecasts) {
