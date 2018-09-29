@@ -26,8 +26,9 @@ class WeatherNow extends Component {
       let maxStop=false;
       let maxTempC=-273;
       let minTempC=100;
+      console.log('forecasts',forecasts);
       //let forecastDateTimePrev = Date().substring(0,16);
-      let hourlyForecastData = [];
+      let forecastArrayOut = [];
       for (let i in forecasts) {
           if (i > 0) { // ignore 1st element because it is in the past, considering 3hr difference
               let forecastDateTime = forecasts[i]["forecast_date"];
@@ -36,6 +37,9 @@ class WeatherNow extends Component {
               forecastDateTime = utils.formatDate(forecastDateTimeD);
               //console.log('forecastDateTime',forecastDateTime);
               let forecast=forecasts[i]["forecasts"];
+              const hourlyWeather = forecast.weather[0];
+              let conditionDescription = hourlyWeather.description;
+              let icon = hourlyWeather.icon;
               //if (new Date(forecastDate)>minMaxPeriod) {
               //      break;
               //}
@@ -48,8 +52,8 @@ class WeatherNow extends Component {
               if (forecastMinTemp < minTempC && !minStop) {minTempC=forecastMinTemp; this.minTempTime=forecastDateTime.substring(0,16);}
               forecastMaxTempPrev = forecastMaxTemp;
               forecastMinTempPrev = forecastMinTemp;
-              //forecastDateTimePrev = forecastDateTime.substring(0,16);
-              hourlyForecastData.push([forecastMaxTemp.toFixed(0),forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16)]);
+              //forecastArrayOut.push([forecastMaxTemp.toFixed(0),forecastMinTemp.toFixed(0), forecastDateTime.substring(11,16),conditionDescription, icon]);
+              forecastArrayOut.push({"maxTemp":forecastMaxTemp.toFixed(0), "minTemp":forecastMinTemp.toFixed(0), "time":forecastDateTime.substring(11,16), "condition": conditionDescription, "icon": icon});
               //console.log('forecast',forecastDateTime,forecastMaxTemp,forecastMinTemp );
               //}
           }
@@ -64,7 +68,7 @@ class WeatherNow extends Component {
           if (maxTempC > 0) {maxTempC="+" + maxTempC;}
           if (maxTempC === "-0") {maxTempC = "0";}
       }
-      return {'hourlyForecastData':hourlyForecastData, 'forecastMinTemp':minTempC, 'forecastMaxTemp' : maxTempC};
+      return {'hourlyForecastData':forecastArrayOut, 'forecastMinTemp':minTempC, 'forecastMaxTemp' : maxTempC};
   }
   componentDidMount() {
 
@@ -124,12 +128,8 @@ class WeatherNow extends Component {
                 </div>
                 <div className = "WeatherNow-hourly-forecast">
                     {hourlyForecastData.map((forecastArray,i) =>{
-                        let hourlyForecast = {};
-                        hourlyForecast.minTemp = forecastArray[1];
-                        hourlyForecast.maxTemp = forecastArray[0];
-                        hourlyForecast.time = forecastArray[2];
                         return (
-                            <HourlyTemp key = {i} forecast = {hourlyForecast} />
+                            <HourlyTemp key = {i} forecast = {forecastArray} />
                         );
                     }
                     )}

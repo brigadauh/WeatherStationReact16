@@ -32,3 +32,9 @@
     float: none;
     text-align: center;
 }
+.HourlyTemp-description {
+    display: inline-block;
+    font-size: 14px;
+    color: #ff4b13;
+    font-weight: bold;
+}

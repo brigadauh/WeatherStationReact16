@@ -27,6 +27,7 @@ class HourlyTemp extends Component {
                 <span className="HourlyTemp-top-left">{constants.upArrow+this.forecast.maxTemp}</span>
                 <span className="HourlyTemp-top-right">{constants.downArrow+this.forecast.minTemp}</span>
                 <span className="HourlyTemp-bottom">{this.forecast.time}</span>
+                <span className="HourlyTemp-description">{this.forecast.condition}</span>
             </span>
             </React.Fragment>
         );
