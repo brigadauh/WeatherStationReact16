@@ -87,10 +87,14 @@ class WeatherNow extends Component {
       const tempC_web=Number(this.props.tempCurrent.temp_web);
       const tempC_prev=Number(this.props.tempCurrent.recent_temp);
       let recordedTime = this.props.tempCurrent.recorded_time;
+      if (recordedTime && recordedTime.length >= 16) {
+        recordedTime = recordedTime.substring(11,16);
+      }
       const currentHumidity = this.props.tempCurrent.humidity;
       const forecasts=this.props.dataForecast || {};
-      const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 1) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
-      const tempC = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 1) ? tempC_web : tempC_local;
+      const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      const tempC = (source ==='web') ? tempC_web : tempC_local;
+
       if (tempC > tempC_prev) {this.tempTrend=constants.upArrow;}
       if (tempC < tempC_prev) {this.tempTrend=constants.downArrow;}
 
@@ -99,6 +103,7 @@ class WeatherNow extends Component {
       //console.log('temps',tempC,tempC_forecast*1.0, tempC>tempC_forecast*1.0 );
       let tempC1 = (this.state.units ==='C') ? tempC.toFixed(0) : (tempC*1.8+32).toFixed(0);
       let tempC2 = (this.state.units ==='C') ? (tempC*1.8+32).toFixed(0) : tempC.toFixed(0);
+      let tempC3 = source ==="web" ? ((this.state.units ==='C') ? tempC_local.toFixed(0) : (tempC_local*1.8+32).toFixed(0)) : ((this.state.units ==='C') ? tempC_web.toFixed(0) : (tempC_web*1.8+32).toFixed(0));
       let temp_forecast1 = (this.state.units ==='C') ? tempC_forecast : (tempC_forecast*1.8+32).toFixed(0);
       let temp_forecast2 = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
       let forecastTempClass = ((this.tempTrend === constants.downArrow && tempC < tempC_forecast*1.0) || (this.tempTrend === constants.upArrow && tempC > tempC_forecast*1.0)) ?  'temp disabled' : 'temp';
@@ -115,8 +120,8 @@ class WeatherNow extends Component {
                     <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div className="misc-data datetime">
-                    <span id="temp_humid_last_reported">{'Current: '+recordedTime}</span>&nbsp;
-                    <span id="temp_humid_source">({source})</span>
+                    <span id="temp_humid_source">{'From '+source}</span>
+                    <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
                 </div>
                 <div>
                     <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{temp_forecast1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
