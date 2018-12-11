@@ -6,7 +6,7 @@ h1 {
     margin: 0 auto;
 }
 .temp {
-    font-size: 4em;
+    font-size: 3.8em;
 }
 .temp-2 {
     font-size: 1em;
@@ -46,5 +46,13 @@ h1 {
 }
 .WeatherNow-hourly-forecast {
     width:100%;
-    overflow-x: auto;
+    height: 130px;
+    max-width:550px;
+    margin-left:auto;
+    margin-right:auto;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+.WeatherNow-hourly-forecast:hover {
+  overflow-x:auto;
 }
