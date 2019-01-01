@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './css/weatherNow.css';
-import './css/HourlyTemp.css';
-import * as utils from './utils';
-import * as constants from './constants';
-import HourlyTemp from './HourlyTemp';
+import * as swipes from 'react-swipe-events';
+import './weatherNow.css';
+import '../css/HourlyTemp.css';
+import * as utils from '../utils';
+import * as constants from '../constants';
+import HourlyTemp from '../HourlyTemp';
 class WeatherNow extends Component {
 
 
@@ -17,6 +18,9 @@ class WeatherNow extends Component {
           curTime:'',
           units:utils.getCookie('temperature-units') || 'C'
       };
+
+  }
+  componentDidMount() {
 
   }
   hourlyData = (forecasts) => {
@@ -70,9 +74,6 @@ class WeatherNow extends Component {
       }
       return {'hourlyForecastData':forecastArrayOut, 'forecastMinTemp':minTempC, 'forecastMaxTemp' : maxTempC};
   }
-  componentDidMount() {
-
-  }
   switchUnits = () => {
       let units = this.state.units;
       if (units ==='C') { units ='F'} else {units = 'C'}
@@ -81,7 +82,9 @@ class WeatherNow extends Component {
           units:units
       });
   }
-
+  swipedLeft = (event) => {
+    //alert('swiped left!');
+  }
   render() {
       const tempC_local=Number(this.props.tempCurrent.temp);
       const tempC_web=Number(this.props.tempCurrent.temp_web);
@@ -92,7 +95,9 @@ class WeatherNow extends Component {
       }
       const currentHumidity = this.props.tempCurrent.humidity;
       const forecasts=this.props.dataForecast || {};
-      const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      // auto switch to web when local is too off
+      //const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      const source = 'local';
       const tempC = (source ==='web') ? tempC_web : tempC_local;
 
       if (tempC > tempC_prev) {this.tempTrend=constants.upArrow;}
@@ -120,7 +125,7 @@ class WeatherNow extends Component {
                     <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div className="misc-data datetime">
-                    <span id="temp_humid_source">{'From '+source}</span>
+                    <span id="temp_humid_source">{'Source: '+source}</span>
                     <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
                 </div>
                 <div>
@@ -132,7 +137,7 @@ class WeatherNow extends Component {
                 <div className="misc-data datetime">
                     <span id="temp_forecast_time">{'Forecast '+tempC_forecast_Time}</span>
                 </div>
-                <div className = "WeatherNow-hourly-forecast">
+                <div className = "WeatherNow-hourly-forecast" onSwipedLeft={this.swipedLeft()}>
                     {hourlyForecastData.map((forecastArray,i) =>{
                         return (
                             <HourlyTemp key = {i} forecast = {forecastArray} />

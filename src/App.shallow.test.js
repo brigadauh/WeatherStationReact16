@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import App from './App';
 import Header from './GlobalHeader';
-import WeatherNow from './WeatherNow';
+import WeatherNow from './WeatherNow/WeatherNow';
 import Footer from './GlobalFooter';
 
 describe('<App />', () => {

@@ -17,8 +17,8 @@ class Footer extends Component  {
                   <div className="col-sm-6">
                     <nav className="navbar navbar-default">
                       <ul className="nav navbar-nav navbar-right display-none">
-                        <li><a href="">Terms of use</a></li>
-                        <li><a href="">Privacy policy</a></li>
+                        <li><a href="/terms">Terms of use</a></li>
+                        <li><a href="/privacy">Privacy policy</a></li>
                       </ul>
                     </nav>
                   </div>

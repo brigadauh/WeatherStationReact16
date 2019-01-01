@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './css/App.css';
 //import Weatherhistory from './WeatherHistory';
-import WeatherNow from './WeatherNow';
+import WeatherNow from './WeatherNow/WeatherNow';
 //import * as utils from './utils';
 import * as controller from './controller';
 import Header from './GlobalHeader';
