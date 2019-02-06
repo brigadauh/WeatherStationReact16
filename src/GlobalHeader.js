@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './css/header.css';
+import './header.css';
 import WeatherImg from './img/weather.png'
 
 class Header extends Component {

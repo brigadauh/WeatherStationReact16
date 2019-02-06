@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import * as swipes from 'react-swipe-events';
 import './weatherNow.css';
-import '../css/HourlyTemp.css';
+import '../HourlyTemp/HourlyTemp.css';
 import * as utils from '../utils';
 import * as constants from '../constants';
-import HourlyTemp from '../HourlyTemp';
+import HourlyTemp from '../HourlyTemp/HourlyTemp';
 class WeatherNow extends Component {
 
 
@@ -97,7 +97,7 @@ class WeatherNow extends Component {
       const forecasts=this.props.dataForecast || {};
       // auto switch to web when local is too off
       //const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
-      const source = 'local';
+      const source = tempC_web >= 0 ? 'local' : 'web';
       const tempC = (source ==='web') ? tempC_web : tempC_local;
 
       if (tempC > tempC_prev) {this.tempTrend=constants.upArrow;}

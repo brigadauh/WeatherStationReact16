@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/HourlyTemp.css';
-import * as constants from './constants';
+import './HourlyTemp.css';
+import * as constants from '../constants';
 
 //import * as utils from './utils';
 
