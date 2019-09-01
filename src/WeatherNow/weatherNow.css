@@ -12,6 +12,17 @@ h1 {
     font-size: 1em;
     font-weight: 600;
     color: #b92e2e;
+    position: relative;
+    left: 145px;
+    top: 40px;
+}
+.temp-4 {
+    font-size: 1em;
+    font-weight: 600;
+    color: #b92e2e;
+    position: relative;
+    left: 145px;
+    bottom: 135px;
 }
 .temp-unit {
     font-size: 0.4em;
@@ -36,13 +47,23 @@ h1 {
 .humidity {
     font-weight: 600;
     color: #667B82;
-
+    margin-top:-50px;
 }
 .datetime {
     font-weight: 600;
     font-style: italic;
     text-align:center;
     color: #5f8aaf;
+    position: relative;
+    top: 40px;
+}
+.datetime-forecast {
+    font-weight: 600;
+    font-style: italic;
+    text-align:center;
+    color: #5f8aaf;
+    position: relative;
+    top: 0px;
 }
 .WeatherNow-hourly-forecast {
     width:100%;

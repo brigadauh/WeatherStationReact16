@@ -96,8 +96,8 @@ class WeatherNow extends Component {
       const currentHumidity = this.props.tempCurrent.humidity;
       const forecasts=this.props.dataForecast || {};
       // auto switch to web when local is too off
-      //const source = (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
-      const source = tempC_web >= 0 ? 'local' : 'web';
+      const source = (!tempC_local || tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      //const source = tempC_web >= 0 ? 'local' : 'web';
       const tempC = (source ==='web') ? tempC_web : tempC_local;
 
       if (tempC > tempC_prev) {this.tempTrend=constants.upArrow;}
@@ -117,6 +117,10 @@ class WeatherNow extends Component {
     return(
         <div>
             <h1 >
+              <div className="misc-data datetime">
+                  <span id="temp_humid_source">{source}</span>
+                  <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
+              </div>
                 <div>
                     <span id="current_temp_2" className="temp-2">&nbsp;{tempC2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
@@ -124,32 +128,29 @@ class WeatherNow extends Component {
                     <span id="temp_trend" className="temp">{this.tempTrend}</span>
                     <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
-                <div className="misc-data datetime">
-                    <span id="temp_humid_source">{'Source: '+source}</span>
-                    <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
+                <div className="misc-data datetime-forecast">
+                    <span id="temp_forecast_time">{'Expected '+tempC_forecast_Time}</span>
                 </div>
                 <div>
                     <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{temp_forecast1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
+                    <span id="current_temp_4" className="temp-4">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
-                <div className="misc-data datetime">
-                    <span id="temp_forecast_time">{'Forecast '+tempC_forecast_Time}</span>
+                <div className="misc-data humidity">
+                    <span>Humidity:</span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>%
                 </div>
                 <div className = "WeatherNow-hourly-forecast" onSwipedLeft={this.swipedLeft()}>
-                    {hourlyForecastData.map((forecastArray,i) =>{
-                        return (
-                            <HourlyTemp key = {i} forecast = {forecastArray} />
-                        );
+                    {
+                      hourlyForecastData.map((forecastArray,i) =>{
+                          return (
+                              <HourlyTemp key = {i} forecast = {forecastArray} />
+                          );
+                      })
                     }
-                    )}
                 </div>
             </h1>
 
-            <div className="misc-data humidity">
-                <span>Humidity:</span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>%
-            </div>
 
         </div>
     ) // return
