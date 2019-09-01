@@ -94,6 +94,7 @@ class WeatherNow extends Component {
         recordedTime = recordedTime.substring(11,16);
       }
       const currentHumidity = this.props.tempCurrent.humidity;
+      const currentPressure = this.props.tempCurrent.pressure_web;
       const forecasts=this.props.dataForecast || {};
       // auto switch to web when local is too off
       const source = (!tempC_local || tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
@@ -113,7 +114,7 @@ class WeatherNow extends Component {
       let temp_forecast2 = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
       let forecastTempClass = ((this.tempTrend === constants.downArrow && tempC < tempC_forecast*1.0) || (this.tempTrend === constants.upArrow && tempC > tempC_forecast*1.0)) ?  'temp disabled' : 'temp';
       let tempC_forecast_Time = (this.tempTrend === constants.downArrow) ? 'min: ' + this.minTempTime : 'max: '+this.maxTempTime;
-      console.log('forecast:',forecasts);
+      //console.log('forecast:',forecasts);
     return(
         <div>
             <h1 >
@@ -138,7 +139,8 @@ class WeatherNow extends Component {
                     <span id="current_temp_4" className="temp-4">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div className="misc-data humidity">
-                    <span>Humidity:</span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>%
+                    <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>% &nbsp;
+                    <span>Pressure: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
                 </div>
                 <div className = "WeatherNow-hourly-forecast" onSwipedLeft={this.swipedLeft()}>
                     {
