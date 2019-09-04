@@ -97,7 +97,7 @@ class WeatherNow extends Component {
       const currentPressure = this.props.tempCurrent.pressure_web;
       const forecasts=this.props.dataForecast || {};
       // auto switch to web when local is too off
-      const source = (!tempC_local || tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      const source = (!tempC_local || (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2)) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
       //const source = tempC_web >= 0 ? 'local' : 'web';
       const tempC = (source ==='web') ? tempC_web : tempC_local;
 
@@ -140,7 +140,9 @@ class WeatherNow extends Component {
                 </div>
                 <div className="misc-data humidity">
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>% &nbsp;
-                    <span>Pressure: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
+                </div>
+                <div className="misc-data pressure">
+                    <span>Barometer: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
                 </div>
                 <div className = "WeatherNow-hourly-forecast" onSwipedLeft={this.swipedLeft()}>
                     {

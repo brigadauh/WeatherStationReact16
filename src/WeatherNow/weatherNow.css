@@ -1,6 +1,7 @@
 h1 {
     text-align: center;
     font-weight:400;
+    margin-top:-30px;
 }
 .main {
     margin: 0 auto;
@@ -48,6 +49,10 @@ h1 {
     font-weight: 600;
     color: #667B82;
     margin-top:-50px;
+}
+.pressure {
+  font-weight: 600;
+  color: #667B82;  
 }
 .datetime {
     font-weight: 600;
