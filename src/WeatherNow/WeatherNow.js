@@ -45,7 +45,7 @@ class WeatherNow extends Component {
               const hourlyWeather = forecast.weather[0];
               let conditionDescription = hourlyWeather.description;
               let icon = hourlyWeather.icon;
-              if (i == 1) {
+              if (i === 1) {
                   currentIcon = icon;
               }
               //if (new Date(forecastDate)>minMaxPeriod) {
