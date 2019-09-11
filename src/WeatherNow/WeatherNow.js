@@ -30,6 +30,7 @@ class WeatherNow extends Component {
       let maxStop=false;
       let maxTempC=-273;
       let minTempC=100;
+      let currentIcon='weather';
       //console.log('forecasts',forecasts);
       //let forecastDateTimePrev = Date().substring(0,16);
       let forecastArrayOut = [];
@@ -44,6 +45,9 @@ class WeatherNow extends Component {
               const hourlyWeather = forecast.weather[0];
               let conditionDescription = hourlyWeather.description;
               let icon = hourlyWeather.icon;
+              if (i == 1) {
+                  currentIcon = icon;
+              }
               //if (new Date(forecastDate)>minMaxPeriod) {
               //      break;
               //}
@@ -62,6 +66,12 @@ class WeatherNow extends Component {
               //}
           }
       }
+      const weatherIconElement = document.getElementById('weather_main_img');
+      if (weatherIconElement) {
+        console.log('weatherIconElement', weatherIconElement);
+        weatherIconElement.src='img/' + currentIcon+'.png';
+      }
+
       if (minTempC === 100){minTempC = "n/a"} else {
           minTempC = minTempC.toFixed(0);
           if (minTempC > 0) {minTempC="+" + minTempC;}
@@ -144,7 +154,7 @@ class WeatherNow extends Component {
                 <div className="misc-data pressure">
                     <span>Barometer: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
                 </div>
-                <div className = "WeatherNow-hourly-forecast" onSwipedLeft={this.swipedLeft()}>
+                <div className = "WeatherNow-hourly-forecast" > { /*onSwipedLeft={this.swipedLeft()} */}
                     {
                       hourlyForecastData.map((forecastArray,i) =>{
                           return (

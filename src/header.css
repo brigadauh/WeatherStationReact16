@@ -35,7 +35,7 @@ header .navbar-brand img{
 
 header .navbar-brand h1 {
   color: white;
-  margin: 0;
+  margin: 0 0 0 -38px;
   font-size: 1.1em;
   font-weight: 400;
   display: inline-block;
