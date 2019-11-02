@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as swipes from 'react-swipe-events';
+// import * as swipes from 'react-swipe-events';
 import './weatherNow.css';
 import '../HourlyTemp/HourlyTemp.css';
 import * as utils from '../utils';
@@ -45,7 +45,7 @@ class WeatherNow extends Component {
               const hourlyWeather = forecast.weather[0];
               let conditionDescription = hourlyWeather.description;
               let icon = hourlyWeather.icon;
-              if (i === 1) {
+              if (Number(i) === 1) {
                   currentIcon = icon;
               }
               //if (new Date(forecastDate)>minMaxPeriod) {
@@ -68,7 +68,7 @@ class WeatherNow extends Component {
       }
       const weatherIconElement = document.getElementById('weather_main_img');
       if (weatherIconElement) {
-        console.log('weatherIconElement', weatherIconElement);
+        console.log('weatherIconElement', weatherIconElement, currentIcon);
         weatherIconElement.src='img/' + currentIcon+'.png';
       }
 

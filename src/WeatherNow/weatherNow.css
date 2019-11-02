@@ -7,10 +7,10 @@ h1 {
     margin: 0 auto;
 }
 .temp {
-    font-size: 3.8em;
+    font-size: 120px;
 }
 .temp-2 {
-    font-size: 1em;
+    font-size: 32px;
     font-weight: 600;
     color: #b92e2e;
     position: relative;
@@ -18,7 +18,7 @@ h1 {
     top: 40px;
 }
 .temp-4 {
-    font-size: 1em;
+    font-size: 32px;
     font-weight: 600;
     color: #b92e2e;
     position: relative;
@@ -26,17 +26,17 @@ h1 {
     bottom: 135px;
 }
 .temp-unit {
-    font-size: 0.4em;
+    font-size: 45px;
 }
 .temp-unit-2 {
-    font-size: 0.4em;
+    font-size: 13px;
 }
 .temp-degrees {
-    font-size: 0.5em;
+    font-size: 45px;
     vertical-align: top;
 }
 .temp-degrees-2 {
-    font-size: 0.5em;
+    font-size: 16px;
     vertical-align: top;
 }
 .misc-data {
@@ -52,7 +52,7 @@ h1 {
 }
 .pressure {
   font-weight: 600;
-  color: #667B82;  
+  color: #667B82;
 }
 .datetime {
     font-weight: 600;
@@ -81,4 +81,47 @@ h1 {
 }
 .WeatherNow-hourly-forecast:hover {
   overflow-x:auto;
+}
+
+@media screen and (max-width: 479px) {
+  .temp {
+      font-size: 70px;
+  }
+  .temp-2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b92e2e;
+      left: 100px;
+      top: 25px;
+  }
+  .temp-4 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b92e2e;
+      left: 100px;
+      top: -90px;
+  }
+  .temp-unit {
+      font-size: 24px;
+  }
+  .temp-unit-2 {
+      font-size: 13px;
+  }
+  .temp-degrees {
+    font-size: 32px;
+    line-height: 32px;
+  }
+  .temp-degrees-2 {
+      font-size: 16px;
+      line-height: 32px;
+  }
+  .misc-data {
+      font-size:14px;
+  }
+  .item-list {
+    margin: 10px;
+  }
+  .current-time {
+    font-size:45px;
+  }
 }

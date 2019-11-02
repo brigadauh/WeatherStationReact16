@@ -9,9 +9,9 @@ class Header extends Component {
           <nav className="navbar navbar-default">
             <div className="container">
               <div className="navbar-header navbar-brand">
-                <img id="weather_main_img" src="img/weather.png" alt="weather icon" />
                 <h1>Fair Lawn, NJ</h1>
               </div>{/* navbar-header */}
+              <img id="weather_main_img" src="img/weather.png" alt="weather icon" />
             </div>{/* container */}
           </nav>
         </header>
