@@ -57,7 +57,9 @@ footer {
   overflow:hidden;
 
 }
-
+.dark footer {
+  background-color: #002544;
+}
 footer a {
   color: #E0E6AE;
 }

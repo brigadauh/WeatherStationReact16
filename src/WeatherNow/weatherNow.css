@@ -6,6 +6,9 @@ h1 {
 .main {
     margin: 0 auto;
 }
+.dark .current-temp {
+  color: white;
+}
 .temp {
     font-size: 120px;
 }

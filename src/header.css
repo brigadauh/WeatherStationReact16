@@ -23,7 +23,9 @@ header .navbar-default {
   border-radius: 0;
   padding: 10px 0;
 }
-
+.dark header .navbar-default {
+  background-color: #002544;
+}
 /**  Navbar Brand **/
 
 header .navbar-default img{

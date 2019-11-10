@@ -136,7 +136,7 @@ class WeatherNow extends Component {
                 <div>
                     <span id="current_temp_2" className="temp-2">&nbsp;{tempC2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
-                <div>
+                <div className="current-temp">
                     <span id="temp_trend" className="temp">{this.tempTrend}</span>
                     <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
