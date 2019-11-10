@@ -104,6 +104,7 @@ class WeatherNow extends Component {
         recordedTime = recordedTime.substring(11,16);
       }
       const currentHumidity = this.props.tempCurrent.humidity;
+      const currentHumidityWeb = this.props.tempCurrent.humidity_web;
       const currentPressure = this.props.tempCurrent.pressure_web;
       const forecasts=this.props.dataForecast || {};
       // auto switch to web when local is too off
@@ -149,7 +150,7 @@ class WeatherNow extends Component {
                     <span id="current_temp_4" className="temp-4">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div className="misc-data humidity">
-                    <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0)}</span>% &nbsp;
+                    <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
                 </div>
                 <div className="misc-data pressure">
                     <span>Barometer: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
