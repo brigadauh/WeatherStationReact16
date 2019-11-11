@@ -6,11 +6,12 @@ h1 {
 .main {
     margin: 0 auto;
 }
-.dark .current-temp {
-  color: white;
+.dark .temp {
+    color: #b9ecff;
 }
 .temp {
     font-size: 120px;
+    font-weight: 600;
 }
 .temp-2 {
     font-size: 32px;

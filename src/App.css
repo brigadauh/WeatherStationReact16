@@ -37,6 +37,9 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 6px;
     border: solid 8px #7d8494;*/
 }
+.dark .current-time{
+    color:  #6eff00;
+}
 
 .main {
   background: white;
