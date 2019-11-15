@@ -14,9 +14,10 @@ class WeatherNow extends Component {
       this.maxTempTime=utils.currentDate();
       this.tempTrend = "";
       this.state = {
-          forecast:null,
-          curTime:'',
-          units:utils.getCookie('temperature-units') || 'C'
+          forecast: null,
+          curTime: '',
+          // units:utils.getCookie('temperature-units') || 'C'
+          units: localStorage.getItem('temperature-units') || 'C'
       };
 
   }
@@ -87,7 +88,8 @@ class WeatherNow extends Component {
   switchUnits = () => {
       let units = this.state.units;
       if (units ==='C') { units ='F'} else {units = 'C'}
-      utils.setCookie('temperature-units', units, 3650,'/');
+      // utils.setCookie('temperature-units', units, 3650,'/');
+      localStorage.setItem('temperature-units', units);
       this.setState({
           units:units
       });
@@ -125,6 +127,9 @@ class WeatherNow extends Component {
       let temp_forecast2 = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
       let forecastTempClass = ((this.tempTrend === constants.downArrow && tempC < tempC_forecast*1.0) || (this.tempTrend === constants.upArrow && tempC > tempC_forecast*1.0)) ?  'temp disabled' : 'temp';
       let tempC_forecast_Time = (this.tempTrend === constants.downArrow) ? 'min: ' + this.minTempTime : 'max: '+this.maxTempTime;
+      let pressureMBar = Number(currentPressure);
+      let pressureMMHg = pressureMBar / 1.3332239;
+      let pressureInHg = pressureMMHg / 25.4;
       //console.log('forecast:',forecasts);
     return(
         <div>
@@ -153,7 +158,7 @@ class WeatherNow extends Component {
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
                 </div>
                 <div className="misc-data pressure">
-                    <span>Barometer: </span><span id="current_humidity">{Number(currentPressure).toFixed(0)}</span> mBar
+                    <span>Barometer: </span><span id="current_humidity">{pressureMBar.toFixed(0)+'  mBar ('+pressureMMHg.toFixed(0)+' mm / '+pressureInHg.toFixed(0)+' in)'}</span>
                 </div>
                 <div className = "WeatherNow-hourly-forecast" > { /*onSwipedLeft={this.swipedLeft()} */}
                     {
