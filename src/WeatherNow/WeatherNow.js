@@ -158,7 +158,7 @@ class WeatherNow extends Component {
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
                 </div>
                 <div className="misc-data pressure">
-                    <span>Barometer: </span><span id="current_humidity">{pressureMBar.toFixed(0)+'  mBar ('+pressureMMHg.toFixed(0)+' mm / '+pressureInHg.toFixed(0)+' in)'}</span>
+                    <span>Barometer: </span><span id="current_humidity">{pressureMBar.toFixed(0)+'  mBar ('+pressureMMHg.toFixed(0)+' mm / '+pressureInHg.toFixed(2)+' in)'}</span>
                 </div>
                 <div className = "WeatherNow-hourly-forecast" > { /*onSwipedLeft={this.swipedLeft()} */}
                     {
