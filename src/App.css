@@ -50,12 +50,12 @@ h1, h2, h3, h4, h5, h6 {
 footer {
   background: #337ab7;
   color: white;
-  font-size: .8em;
+  font-size: .6em;
   padding: 0;
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 60px;
+  height: 20px;
   width: 100%;
   overflow:hidden;
 
@@ -95,7 +95,7 @@ footer .navbar-nav>li a {
   color: #EEC856 !important;
 }
 footer .content {
-    line-height:60px;
+    line-height:20px;
 }
 footer .content p {
     margin:0px;

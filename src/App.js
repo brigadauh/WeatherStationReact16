@@ -4,7 +4,7 @@ import './App.css';
 //import Weatherhistory from './WeatherHistory';
 import WeatherNow from './WeatherNow/WeatherNow';
 //import * as utils from './utils';
-import * as controller from './controller';
+import * as service from './service';
 import Header from './GlobalHeader';
 import Footer from './GlobalFooter';
 
@@ -23,9 +23,9 @@ class App extends Component {
     componentDidMount(){
         this.interval = setInterval(this.tick, 1000);
         this.setState({timeElapsed: this.state.timeElapsed + 1});
-        controller.getDataCurrent(this);
-        controller.getDataForecast(this);
-        controller.getTime(this, true);
+        service.getDataCurrent(this);
+        service.getDataForecast(this);
+        service.getTime(this, true);
     }
     componentWillUnmount() {
         if (this.interval){
@@ -46,7 +46,7 @@ class App extends Component {
                 dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
                 timeElapsed = {this.state.timeElapsed}
                 />
-              <div id="current_time" className="current-time" onClick={(e) => controller.getTime(this,true)}> {this.state.curTime} </div>
+              <div id="current_time" className="current-time" onClick={(e) => service.getTime(this,true)}> {this.state.curTime} </div>
               {/*tempHistHtml*/}
           </div>
         </div>
