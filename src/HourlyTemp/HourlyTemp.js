@@ -23,7 +23,7 @@ class HourlyTemp extends Component {
         }
         return (
             <React.Fragment>
-            <span className = "HourlyTemp-box">
+            <span className = "HourlyTemp-box" style = {{backgroundImage: `url(img/${this.forecast.icon}.png)`}}>
                 <span className="HourlyTemp-top-left">{constants.upArrow+this.forecast.maxTemp}</span>
                 <span className="HourlyTemp-top-right">{constants.downArrow+this.forecast.minTemp}</span>
                 <span className="HourlyTemp-bottom">{this.forecast.time}</span>

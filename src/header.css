@@ -52,3 +52,6 @@ header .navbar-brand h1 {
 .navbar-nav {
     margin: 0px -15px;
 }
+.navigation-menu {
+  right:20px;
+}
