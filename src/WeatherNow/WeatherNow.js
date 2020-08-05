@@ -109,8 +109,9 @@ class WeatherNow extends Component {
       const currentHumidityWeb = this.props.tempCurrent.humidity_web;
       const currentPressure = this.props.tempCurrent.pressure_web;
       const forecasts=this.props.dataForecast || {};
-      // auto switch to web when local is too off
-      const source = (!tempC_local || (tempC_local > tempC_web && Math.abs(tempC_local - tempC_web) > 2)) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
+      // auto switch to web when local isn't showing negative digits or if local is not available
+      const source = (!tempC_local || (tempC_local > tempC_web && tempC_web < 0 && tempC_local > 0
+         && Math.abs(tempC_local - tempC_web) > 2)) ? 'web':this.props.tempCurrent.source ==='' ? 'local' : this.props.tempCurrent.source;
       //const source = tempC_web >= 0 ? 'local' : 'web';
       const tempC = (source ==='web') ? tempC_web : tempC_local;
 
