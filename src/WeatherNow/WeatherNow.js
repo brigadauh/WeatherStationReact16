@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 // import * as swipes from 'react-swipe-events';
 import './weatherNow.css';
 import '../HourlyTemp/HourlyTemp.css';
-import * as utils from '../utils';
+import * as utils from '../utils/utils';
+import {formatDateSimple} from '../utils/dateFormatter';
 import * as constants from '../constants';
 import HourlyTemp from '../HourlyTemp/HourlyTemp';
 class WeatherNow extends Component {
@@ -40,7 +41,7 @@ class WeatherNow extends Component {
               let forecastDateTime = forecasts[i]["forecast_date"];
               let forecastDateTimeD =new Date(forecastDateTime);
               forecastDateTimeD.setHours(forecastDateTimeD.getHours()-3);
-              forecastDateTime = utils.formatDate(forecastDateTimeD);
+              forecastDateTime = formatDateSimple(forecastDateTimeD);
               //console.log('forecastDateTime',forecastDateTime);
               let forecast=forecasts[i]["forecasts"];
               const hourlyWeather = forecast.weather[0];
