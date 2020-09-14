@@ -122,11 +122,11 @@ class WeatherNow extends Component {
       let {hourlyForecastData, forecastMinTemp, forecastMaxTemp} = this.hourlyData(forecasts);
       let tempC_forecast = (this.tempTrend === constants.downArrow) ? forecastMinTemp : forecastMaxTemp;
       //console.log('temps',tempC,tempC_forecast*1.0, tempC>tempC_forecast*1.0 );
-      let tempC1 = (this.state.units ==='C') ? tempC.toFixed(0) : (tempC*1.8+32).toFixed(0);
-      let tempC2 = (this.state.units ==='C') ? (tempC*1.8+32).toFixed(0) : tempC.toFixed(0);
+      let tempCurrentMain = (this.state.units ==='C') ? tempC.toFixed(0) : (tempC*1.8+32).toFixed(0);
+      let tempCurrentSubscript = (this.state.units ==='C') ? (tempC*1.8+32).toFixed(0) : tempC.toFixed(0);
       let tempC3 = source ==="web" ? ((this.state.units ==='C') ? tempC_local.toFixed(0) : (tempC_local*1.8+32).toFixed(0)) : ((this.state.units ==='C') ? tempC_web.toFixed(0) : (tempC_web*1.8+32).toFixed(0));
-      let temp_forecast1 = (this.state.units ==='C') ? tempC_forecast : (tempC_forecast*1.8+32).toFixed(0);
-      let temp_forecast2 = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
+      let tempForecastMain = (this.state.units ==='C') ? tempC_forecast : (tempC_forecast*1.8+32).toFixed(0);
+      let tempForecastSubscript = (this.state.units ==='C') ? (tempC_forecast*1.8+32).toFixed(0): tempC_forecast;
       let forecastTempClass = ((this.tempTrend === constants.downArrow && tempC < tempC_forecast*1.0) || (this.tempTrend === constants.upArrow && tempC > tempC_forecast*1.0)) ?  'temp disabled' : 'temp';
       let tempC_forecast_Time = (this.tempTrend === constants.downArrow) ? 'min: ' + this.minTempTime : 'max: '+this.maxTempTime;
       let pressureMBar = Number(currentPressure);
@@ -141,20 +141,20 @@ class WeatherNow extends Component {
                   <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
               </div>
                 <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{tempC2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
+                    <span id="current_temp_2" className="temp-2">&nbsp;{tempCurrentSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div className="current-temp">
                     <span id="temp_trend" className="temp">{this.tempTrend}</span>
-                    <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempC1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
+                    <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempCurrentMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div className="misc-data datetime-forecast">
                     <span id="temp_forecast_time">{'Expected '+tempC_forecast_Time}</span>
                 </div>
                 <div>
-                    <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{temp_forecast1}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
+                    <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{tempForecastMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
                 </div>
                 <div>
-                    <span id="current_temp_4" className="temp-4">&nbsp;{temp_forecast2}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
+                    <span id="current_temp_4" className="temp-4">&nbsp;{tempForecastSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
                 </div>
                 <div className="misc-data humidity">
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
