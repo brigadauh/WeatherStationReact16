@@ -3,6 +3,7 @@ import './header.css';
 //import WeatherImg from './img/weather.png';
 
 class Header extends Component {
+
   render() {
     return (
         <header>
@@ -12,7 +13,7 @@ class Header extends Component {
                 <h1>Fair Lawn, NJ</h1>
               </div>
               <img id="weather_main_img" src="img/weather.png" alt="weather icon" />
-              <img className="navigation-menu" src="img/ico-menu.svg" alt="navigation" />
+                    <img className="navigation-menu" src="img/ico-menu.svg" alt="navigation" onClick={this.props.menuClick} />
             </div>
           </nav>
         </header>
