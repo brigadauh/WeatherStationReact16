@@ -41,13 +41,18 @@ class App extends Component {
 	}
     render() {
     //let tempHistHtml=[];
-        const menuState = this.state.menuState;
-        return (
-          <React.Fragment>
+			const menuState = this.state.menuState;
+			const theme = localStorage.getItem('theme');
+			document.body.classList.remove('dark');
+			if (theme === 'dark') {
+				document.body.classList.add(theme);
+			}
+			return (
+				<div>
 						{(menuState === 'settings') && <SettingsForm />}
-    	    <div id="header">
-                    <Header menuClick={this.menuClick}/>
-    	    </div>
+    				<div id="header">
+											<Header menuClick={this.menuClick}/>
+    				</div>
             <div className="interface">
               <div className="item-list media-list">
                   <WeatherNow
@@ -62,7 +67,7 @@ class App extends Component {
               </div>
             </div>
             <Footer />
-	    </React.Fragment>
+	       </div>
         );
     }
 }

@@ -1,0 +1,27 @@
+
+.settings-form {
+    padding: 20px;
+    border: 1px solid #8c8c8c;
+    background-color: #cccccc;
+    border-radius: 5px;
+    width: max-content;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 100px;
+    top: 70px;
+}
+    .settings-form label {
+        color: white;
+        
+    }
+    .settings-form select {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        height: 35px;
+    }
+.dark .settings-form {
+    border: 1px solid #7d7d7d;
+    background-color: #4c4c4c;
+}

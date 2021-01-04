@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
-const style = {
+import './settings.css';
+const style = { // todo: remove when moved to CSS
     table: {
         borderCollapse: 'collapse'
     },
@@ -19,7 +19,9 @@ const style = {
             border: '1px solid #F0F8FF',
             borderRadius: '15px',
             width: 'max-content',
-            marginBottom: '40px'
+					marginBottom: '40px',
+					display: 'flex',
+					flexDirection: 'column'
         },
         inputs: {
             marginBottom: '5px'
@@ -36,30 +38,49 @@ const style = {
 }
 
 export function SettingsForm({ addEntryToPhoneBook }) {
-  const [firstName, setFirstName] = useState('Coder')
-  const [lastName, setLastName] = useState('Byte')
-	const [phoneNumber, setPhoneNumber] = useState('8885559999');
-	const [theme, setTheme] = useState('light');
+	// const [firstName, setFirstName] = useState('Coder')
+	// const [lastName, setLastName] = useState('Byte')
+	// const [phoneNumber, setPhoneNumber] = useState('8885559999');
+	const [temperatureUnits, setTemperatureUnits] = useState('C');
+	const [theme, setTheme] = useState('dark');
 
   const onSubmit = (e) => {
-      const newEntry = {
-          firstName: firstName || '',
-          lastName: lastName || '',
-          phoneNumber: phoneNumber || ''
-      }
-      addEntryToPhoneBook(newEntry)
-      e.preventDefault()
+      //const newEntry = {
+      //    firstName: firstName || '',
+      //    lastName: lastName || '',
+      //    phoneNumber: phoneNumber || ''
+      //}
+      //addEntryToPhoneBook(newEntry)
+		e.preventDefault();
   }
 	useEffect(() => { // sample, todo: implement
-		const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-		const targetUrl = `https://cat-fact.herokuapp.com/facts/${theme}`;
-		fetch(proxyUrl + targetUrl)
-			.then(response => response.json())
-			.then(facts => {
-				setPhoneNumber(facts.text);
-			});
-	}, [setPhoneNumber, setTheme]);
-  return (
+	//	const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+	//	const targetUrl = `https://cat-fact.herokuapp.com/facts/${theme}`;
+	//	fetch(proxyUrl + targetUrl)
+	//		.then(response => response.json())
+	//		.then(facts => {
+	//			setPhoneNumber(facts.text);
+	//		});
+		const tempUnits = localStorage.getItem('temperature-units');
+		const theme = localStorage.getItem('theme');
+		if (tempUnits) {
+			setTemperatureUnits(tempUnits);
+		}
+		if (theme) {
+			setTheme(theme);
+		}
+	}, [setTemperatureUnits, setTheme]);
+
+	const storeTemperatureUnits = (value) => {
+		console.log('temp. units', value);
+		localStorage.setItem('temperature-units', value);
+	};
+	const storeTheme = (value) => {
+		console.log('theme', value);
+		localStorage.setItem('theme', value);
+	};
+	return (
+		/*
       <form onSubmit={onSubmit} style={style.form.container}>
           <label>First name:</label>
           <br />
@@ -105,6 +126,23 @@ export function SettingsForm({ addEntryToPhoneBook }) {
               value='Add User'
           />
       </form>
+			*/
+		<form onSubmit={onSubmit} className="settings-form">
+			<label>Temperature Units:</label>
+			<select className="unitsDD" value={temperatureUnits} onChange={e => {
+				setTemperatureUnits(e.target.value); storeTemperatureUnits(e.target.value)
+				}}>
+				<option value="C">&deg;C</option>
+				<option value="F">&deg;F</option>
+			</select>
+			<label>Theme:</label>
+			<select className="themeDD" value={theme} onChange={e => {
+				setTheme(e.target.value); storeTheme(e.target.value)
+			}}>
+				<option value="dark">Dark</option>
+				<option value="light">Light</option>
+			</select>
+		</form>
   )
 }
 

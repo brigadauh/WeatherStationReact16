@@ -23,8 +23,10 @@ class WeatherNow extends Component {
 
   }
   componentDidMount() {
-
-  }
+	}
+	static getDerivedStateFromProps(props, state) {
+		return { units: localStorage.getItem('temperature-units') || 'C' };
+	}
   hourlyData = (forecasts) => {
       let forecastMaxTempPrev=-273;
       let forecastMinTempPrev=100;
