@@ -6,9 +6,8 @@ import * as utils from '../utils/utils';
 import {formatDateSimple} from '../utils/dateFormatter';
 import * as constants from '../constants';
 import HourlyTemp from '../HourlyTemp/HourlyTemp';
+import {HistoryBarometerHumidityComponent} from '../History/history';
 class WeatherNow extends Component {
-
-
   constructor(props){
       super(props);
       this.minTempTime=utils.currentDate();
@@ -18,9 +17,9 @@ class WeatherNow extends Component {
           forecast: null,
           curTime: '',
           // units:utils.getCookie('temperature-units') || 'C'
-          units: localStorage.getItem('temperature-units') || 'C'
+          units: localStorage.getItem('temperature-units') || 'C',
+          historyBarometerShown: false
       };
-
   }
   componentDidMount() {
 	}
@@ -44,8 +43,9 @@ class WeatherNow extends Component {
               let forecastDateTimeD =new Date(forecastDateTime);
               forecastDateTimeD.setHours(forecastDateTimeD.getHours()-3);
               forecastDateTime = formatDateSimple(forecastDateTimeD);
-              //console.log('forecastDateTime',forecastDateTime);
-              let forecast=forecasts[i]["forecasts"];
+              //console.log('forecasts',forecasts[i]);
+              const rec = forecasts[i];
+              let forecast=JSON.parse(rec.forecasts);
               const hourlyWeather = forecast.weather[0];
               let conditionDescription = hourlyWeather.description;
               let icon = hourlyWeather.icon;
@@ -72,7 +72,7 @@ class WeatherNow extends Component {
       }
       const weatherIconElement = document.getElementById('weather_main_img');
       if (weatherIconElement) {
-        console.log('weatherIconElement', weatherIconElement, currentIcon);
+        //console.log('weatherIconElement', weatherIconElement, currentIcon);
         weatherIconElement.src='img/' + currentIcon+'.png';
       }
 
@@ -99,6 +99,17 @@ class WeatherNow extends Component {
   }
   swipedLeft = (event) => {
     //alert('swiped left!');
+  }
+  historyBarometerShow = (e) => {
+    e.preventDefault();
+    this.setState({
+        historyBarometerShown: true
+    });
+  }
+  historyBarometerClose = (e) => {
+    this.setState({
+        historyBarometerShown: false
+    });
   }
   render() {
       const tempC_local=Number(this.props.tempCurrent.temp);
@@ -136,6 +147,7 @@ class WeatherNow extends Component {
       let pressureInHg = pressureMMHg / 25.4;
       //console.log('forecast:',forecasts);
     return(
+        <React.Fragment>
         <div>
             <h1 >
               <div className="misc-data datetime">
@@ -161,7 +173,7 @@ class WeatherNow extends Component {
                 <div className="misc-data humidity">
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
                 </div>
-					<div className="misc-data pressure" onClick={this.historyBarometer}>
+					<div className="misc-data pressure" onClick={this.historyBarometerShow}>
                     <span>Barometer: </span><span id="current_humidity">{pressureMBar.toFixed(0)+'  mBar ('+pressureMMHg.toFixed(0)+' mm / '+pressureInHg.toFixed(2)+' in)'}</span>
                 </div>
                 <div className = "WeatherNow-hourly-forecast" > { /*onSwipedLeft={this.swipedLeft()} */}
@@ -174,9 +186,14 @@ class WeatherNow extends Component {
                     }
                 </div>
             </h1>
-
-
         </div>
+        { this.state.historyBarometerShown &&
+        <div>
+            <HistoryBarometerHumidityComponent closeCallback={this.historyBarometerClose} />    
+        </div>
+
+        }
+      </React.Fragment>
     ) // return
   } // render
 } //WeatherNow

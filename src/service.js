@@ -15,9 +15,12 @@ export function getDataForecast(content) {
         getDataForecast(content);
     },60000*60);
     return fetch(`/api/weather/forecast`)
-    .then(result=>result.json())
+    .then(result=> {
+        return result.json();
+    })
     .then(forecast=>{
         const data=forecast.data;
+        
         content.setState({forecast:data});
 
     })

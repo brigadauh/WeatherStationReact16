@@ -161,7 +161,33 @@ footer .content p {
 .item-list .apt-notes {
 
 }
-
+/****************************
+modal window
+****************************/
+.modal-background {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 100%;
+  background-color: #afafafaf;
+}
+.modal-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color:white;
+  transform: translate(-50%, -50%);
+  padding:10px;
+}
+.modal-close{
+  position: absolute;
+  top:3px;
+  right:7px;
+  font-size:20px;
+  cursor:pointer;
+}
 /****************************
 Came with create-react-app
 ****************************/
@@ -188,6 +214,7 @@ Came with create-react-app
 .App-intro {
   font-size: large;
 }
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
