@@ -159,7 +159,7 @@ footer .content p {
 }
 
 .item-list .apt-notes {
-
+  top:0;
 }
 /****************************
 modal window
@@ -184,8 +184,8 @@ modal window
 .modal-close{
   position: absolute;
   top:3px;
-  right:7px;
-  font-size:20px;
+  right: 10px;
+  font-size:30px;
   cursor:pointer;
 }
 /****************************
