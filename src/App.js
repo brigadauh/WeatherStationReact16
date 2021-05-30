@@ -60,8 +60,15 @@ class App extends Component {
                     dataForecast={this.state.forecast && this.state.forecast.length>0 ? this.state.forecast : []}
                     timeElapsed = {this.state.timeElapsed}
                     />
-                  <div id="current_time" className="current-time" onClick={(e) => service.getTime(this,true)}>{this.state.curTime} </div>
-                        <div id="current_timePT" className="current-time" onClick={(e) => service.getTime(this, true)}>{this.state.curTimePT} </div>
+                  <div className="current-time time-zone">New York</div>
+                  <div id="current_time" className="current-time" onClick={(e) => service.getTime(this,true)}>
+                    {this.state.curTime}
+                  </div>
+                  <div style={{height:'10px'}}></div>
+                  <div className="current-time time2 time-zone-2">San Francisco</div>
+                  <div id="current_timePT" className="current-time time2" onClick={(e) => service.getTime(this, true)}>
+                    {this.state.curTimePT}
+                  </div>
 
                   {/*tempHistHtml*/}
               </div>

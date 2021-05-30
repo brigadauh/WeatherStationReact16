@@ -37,6 +37,16 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 6px;
     border: solid 8px #7d8494;*/
 }
+.current-time.time-zone {
+  font-size:30px;
+}
+.current-time.time2 {
+  font-size:50px;
+}
+.current-time.time-zone-2 {
+  font-size:20px;
+  margin-bottom:10px;
+}
 .dark .current-time{
     color:  #6eff00;
 }
