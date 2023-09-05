@@ -9,8 +9,9 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    right: 100px;
+    right: 0px;
     top: 70px;
+    z-index:100;
 }
     .settings-form label {
         color: white;
