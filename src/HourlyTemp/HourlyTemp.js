@@ -12,7 +12,7 @@ class HourlyTemp extends Component {
     componentDidMount(){
         this.forecast = this.props.forecast;
     }
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
         this.forecast = newProps.forecast;
         //console.log('newProps', this.forecast);
     }
