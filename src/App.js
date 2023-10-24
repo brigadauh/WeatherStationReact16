@@ -9,7 +9,9 @@ import Header from './GlobalHeader';
 import Footer from './GlobalFooter';
 import { SettingsForm }  from './Settings/settings';
 
+
 class App extends Component {
+  timeZoneList={};
   constructor(props){
       super(props);
       this.state = {
@@ -28,6 +30,7 @@ class App extends Component {
       service.getDataCurrent(this);
       service.getDataForecast(this);
       service.getTime(this, true);
+      this.timezoneList();
   }
   componentWillUnmount() {
       if (this.interval){
@@ -39,6 +42,45 @@ class App extends Component {
 		
 		this.setState({ menuState: (!menuState) ? 'settings' : '' });
 	}
+
+  timezoneList() {
+    const url = `/api/weather/settings/timezone-list`;
+    const timeZonesLastRead=localStorage.getItem("timeZonesLastRead");
+    const timeZones = localStorage.getItem("timeZones");
+    if(timeZones) this.timeZoneList = JSON.parse(timeZones);
+    const currentTimeStamp=new Date().getTime();
+    if (!timeZonesLastRead || !timeZones || (currentTimeStamp - timeZonesLastRead)/1000 > 3600*4 ) {
+    fetch(url, {method:'GET', mode:'no-cors'})
+      .then(response => response.json())
+      .then(data => {
+        //const localTime = new Date(data.timestamp * 1000); // Convert timestamp to milliseconds
+        //console.log(`Local time in ${zone}: ${localTime.toLocaleTimeString()}`);
+        //console.log(`Response from timezonDB: ${data}`);
+        localStorage.setItem("timeZones", JSON.stringify(data));
+        localStorage.setItem("timeZonesLastRead", new Date().getTime());
+        this.timeZoneList = JSON.parse(localStorage.getItem("timeZones"));
+        console.log('timeZoneList from Web', this.timeZoneList);
+      })
+      .catch(error => console.error(error));
+    } else {
+      
+      console.log('timeZoneList from storage', this.timeZoneList);
+    }
+  }
+  timezone() {
+    const apiKey = 'S5AW0I7AMXXL';
+    const zone = 'New_York'; // Replace with the desired city name
+    const url = `/api/weather/settings/timezone?zone=${encodeURIComponent(zone)}`;
+    fetch(url, {method:'GET', mode:'no-cors'})
+      .then(response => response.json())
+      .then(data => {
+        //const localTime = new Date(data.timestamp * 1000); // Convert timestamp to milliseconds
+        //console.log(`Local time in ${zone}: ${localTime.toLocaleTimeString()}`);
+        console.log(`Response from timezonDB: ${data}`);
+      })
+      .catch(error => console.error(error));
+    
+  }
     render() {
     //let tempHistHtml=[];
 			const menuState = this.state.menuState;
