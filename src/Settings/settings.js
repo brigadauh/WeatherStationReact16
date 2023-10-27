@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './settings.css';
+/*
 const style = { // todo: remove when moved to CSS
     table: {
         borderCollapse: 'collapse'
@@ -36,6 +37,7 @@ const style = { // todo: remove when moved to CSS
         }
     }
 }
+*/
 
 export function SettingsForm({ addEntryToPhoneBook }) {
 	// const [firstName, setFirstName] = useState('Coder')
@@ -44,7 +46,7 @@ export function SettingsForm({ addEntryToPhoneBook }) {
 	const [temperatureUnits, setTemperatureUnits] = useState('C');
 	const [theme, setTheme] = useState('dark');
 
-  const onSubmit = (e) => {
+  const formSubmit = (e) => {
       //const newEntry = {
       //    firstName: firstName || '',
       //    lastName: lastName || '',
@@ -81,7 +83,7 @@ export function SettingsForm({ addEntryToPhoneBook }) {
 	};
 	return (
 		/*
-      <form onSubmit={onSubmit} style={style.form.container}>
+      <form onSubmit={formSubmit} style={style.form.container}>
           <label>First name:</label>
           <br />
           <input
@@ -127,7 +129,7 @@ export function SettingsForm({ addEntryToPhoneBook }) {
           />
       </form>
 			*/
-		<form onSubmit={onSubmit} className="settings-form">
+		<form onSubmit={formSubmit} className="settings-form">
 			<label>Temperature Units:</label>
 			<select className="unitsDD" value={temperatureUnits} onChange={e => {
 				setTemperatureUnits(e.target.value); storeTemperatureUnits(e.target.value)
@@ -142,6 +144,8 @@ export function SettingsForm({ addEntryToPhoneBook }) {
 				<option value="dark">Dark</option>
 				<option value="light">Light</option>
 			</select>
+            <label>Set Current Location</label>
+            <label>Set 2nd Location</label>
 		</form>
   )
 }
