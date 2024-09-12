@@ -55,14 +55,13 @@ export function SettingsForm({ addEntryToPhoneBook }) {
       //addEntryToPhoneBook(newEntry)
 		e.preventDefault();
   }
-	useEffect(() => { // sample, todo: implement
-	//	const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-	//	const targetUrl = `https://cat-fact.herokuapp.com/facts/${theme}`;
-	//	fetch(proxyUrl + targetUrl)
-	//		.then(response => response.json())
-	//		.then(facts => {
-	//			setPhoneNumber(facts.text);
-	//		});
+  const onClickCurrLocation = (e) => {
+    console.log('Current Location menu clicked');
+  }
+  const onClick2ndLocation = (e) => {
+    console.log('2nd Location menu clicked');
+  }
+	useEffect(() => { 
 		const tempUnits = localStorage.getItem('temperature-units');
 		const theme = localStorage.getItem('theme');
 		if (tempUnits) {
@@ -144,8 +143,8 @@ export function SettingsForm({ addEntryToPhoneBook }) {
 				<option value="dark">Dark</option>
 				<option value="light">Light</option>
 			</select>
-            <label>Set Current Location</label>
-            <label>Set 2nd Location</label>
+            <label onClick={onClickCurrLocation}>Set Current Location</label>
+            <label onClick={onClick2ndLocation}>Set 2nd Location</label>
 		</form>
   )
 }
