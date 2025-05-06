@@ -107,15 +107,27 @@ h1 {
 .WeatherNow-hourly-forecast:hover {
   overflow-x:auto;
 }
-
+@media screen and (max-width: 639px) {
+    .current-temp {
+        display:block;
+    }
+    .right-arrow {
+        display:none;
+    }
+    .forecast-temp {
+        display:block;
+    }
+}
 @media screen and (max-width: 479px) {
   .temp {
       font-size: 70px;
+      line-height:70px;
   }
   .temp-2 {
       font-size: 20px;
       font-weight: 600;
       color: #b92e2e;
+      margin-left: -10px;
       left: 0px;
       top: -40px;
   }
@@ -125,6 +137,9 @@ h1 {
       color: #b92e2e;
       left: 100px;
       top: -90px;
+  }
+  .right-arrow {
+    line-height: 65px;
   }
   .temp-unit {
       font-size: 24px;
@@ -144,6 +159,7 @@ h1 {
   }
   .misc-data {
       font-size:14px;
+      margin-bottom:20px;
   }
   .item-list {
     margin: 10px;
@@ -152,6 +168,7 @@ h1 {
     font-size:45px;
   }
   .datetime-forecast {
-    margin-top:15px;
+    margin-top:0px;
+    top:-10px;
   }
 }
