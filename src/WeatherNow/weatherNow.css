@@ -1,13 +1,25 @@
 h1 {
     text-align: center;
     font-weight:400;
-    margin-top:-30px;
 }
 .main {
     margin: 0 auto;
 }
-.dark .temp {
+.dark .temp, .dark .right-arrow {
     color: #b9ecff;
+}
+.temperature-overlay {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.current-temp {
+    display: inline-flex;
+        vertical-align: top;
+}
+.forecast-temp {
+    display: inline-flex;
+    vertical-align: top;
 }
 .temp {
     font-size: 120px;
@@ -17,20 +29,21 @@ h1 {
     font-size: 32px;
     font-weight: 600;
     color: #b92e2e;
-    position: relative;
-    left: 145px;
-    top: 40px;
+    margin-left: -20px;
+    display: inline-block;
+    vertical-align: top;
 }
 .temp-4 {
     font-size: 32px;
     font-weight: 600;
     color: #b92e2e;
     position: relative;
-    left: 145px;
-    bottom: 135px;
+    left: 0px;
+    bottom: -80px;
 }
 .temp-unit {
     font-size: 45px;
+    margin-left: -10px;
 }
 .temp-unit-2 {
     font-size: 13px;
@@ -38,10 +51,20 @@ h1 {
 .temp-degrees {
     font-size: 45px;
     vertical-align: top;
+    margin-left: -10px;
 }
 .temp-degrees-2 {
     font-size: 16px;
     vertical-align: top;
+}
+.right-arrow {
+    display: inline-flex;
+    line-height: 130px;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight: bolder;
+    vertical-align: top;
+    justify-content: center;
 }
 .misc-data {
         text-align: center;
@@ -52,7 +75,7 @@ h1 {
 .humidity {
     font-weight: 600;
     color: #667B82;
-    margin-top:-50px;
+    margin-top:-15px;
 }
 .pressure {
   font-weight: 600;
@@ -63,8 +86,6 @@ h1 {
     font-style: italic;
     text-align:center;
     color: #5f8aaf;
-    position: relative;
-    top: 40px;
 }
 .datetime-forecast {
     font-weight: 600;
@@ -72,7 +93,7 @@ h1 {
     text-align:center;
     color: #5f8aaf;
     position: relative;
-    top: 0px;
+    top: -20px;
 }
 .WeatherNow-hourly-forecast {
     width:100%;
@@ -95,8 +116,8 @@ h1 {
       font-size: 20px;
       font-weight: 600;
       color: #b92e2e;
-      left: 100px;
-      top: 25px;
+      left: 0px;
+      top: -40px;
   }
   .temp-4 {
       font-size: 20px;
@@ -107,17 +128,19 @@ h1 {
   }
   .temp-unit {
       font-size: 24px;
+      margin-left: -5px;
   }
   .temp-unit-2 {
       font-size: 13px;
+
   }
   .temp-degrees {
     font-size: 32px;
     line-height: 32px;
+    margin-left: -5px;
   }
   .temp-degrees-2 {
-      font-size: 16px;
-      line-height: 32px;
+      font-size: 12px;
   }
   .misc-data {
       font-size:14px;
@@ -127,5 +150,8 @@ h1 {
   }
   .current-time {
     font-size:45px;
+  }
+  .datetime-forecast {
+    margin-top:15px;
   }
 }

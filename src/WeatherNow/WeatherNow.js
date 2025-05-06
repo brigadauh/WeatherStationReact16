@@ -154,22 +154,25 @@ class WeatherNow extends Component {
                   <span id="temp_humid_source">{source}</span>
                   <span id="temp_humid_last_reported">{' at '+recordedTime+' ('+(source === 'web'?'local':'web') +' '+tempC3+String.fromCharCode(176)+')'}</span>&nbsp;
               </div>
-                <div>
-                    <span id="current_temp_2" className="temp-2">&nbsp;{tempCurrentSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
+                <div style={{height:"30px"}}>
                 </div>
-                <div className="current-temp">
-                    <span id="temp_trend" className="temp">{this.tempTrend}</span>
-                    <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempCurrentMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
+                <div className="temperature-overlay">
+                    <div className="current-temp">
+                        <span id="temp_trend" className="temp">{this.tempTrend}</span>
+                        <span id="current_temp" className="temp" onClick = {this.switchUnits}>{tempCurrentMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
+                        <div id="current_temp_2" className="temp-2">&nbsp;{tempCurrentSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></div>
+                    </div>
+                    <div className="right-arrow">{constants.rightArrow}</div>
+                    <div className="forecast-temp">
+                        <span id="min_max_temp" className={forecastTempClass} onClick = {this.switchUnits}>{tempForecastMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
+                        <span id="forecast_temp" className="temp-2">&nbsp;{tempForecastSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
+                    </div>
+                    <div style={{clear:"both",height:"20px"}}></div>
                 </div>
                 <div className="misc-data datetime-forecast">
                     <span id="temp_forecast_time">{'Expected '+tempC_forecast_Time}</span>
                 </div>
-                <div>
-                    <span id="min_temp" className={forecastTempClass} onClick = {this.switchUnits}>{tempForecastMain}<span className="temp-degrees">&deg;</span><span id="current_temp_unit" className="temp-unit">{this.state.units}</span></span>
-                </div>
-                <div>
-                    <span id="current_temp_4" className="temp-4">&nbsp;{tempForecastSubscript}<span className="temp-degrees-2">&deg;</span><span id="current_temp_unit_2" className="temp-unit-2">{this.state.units ==='C' ? 'F': 'C'}</span></span>
-                </div>
+
                 <div className="misc-data humidity">
                     <span>Humidity: </span><span id="current_humidity">{Number(currentHumidity).toFixed(0) + '% (web: ' + Number(currentHumidityWeb).toFixed(0)+')'}</span>% &nbsp;
                 </div>
